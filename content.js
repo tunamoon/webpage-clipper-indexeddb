@@ -10,18 +10,40 @@ function extractTextContent(doc) {
   
   // Limit to first 100 words
   const words = bodyText.split(/\s+/);
+  const wordCount = words.length;
+
+  const readingTime = Math.ceil(wordCount / 200);
+
   const firstHundredWords = words.slice(0, 100).join(' ');
   
-  return firstHundredWords + (words.length > 100 ? '...' : '');
+  return {
+    content: firstHundredWords + (words.length > 100 ? '...' : ''),
+    wordCount: wordCount,
+    readingTime: readingTime
+
+  };
 }
 
 // Function to clip the current page
-function clipCurrentPage() {
+function clipCurrentPage() {  
+  
+  let faviconUrl = '';
+  const faviconLink = document.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
+  if (faviconLink) {
+    faviconUrl = faviconLink.href;
+  }
+  
+  // Extract text content with metrics
+  const textData = extractTextContent(document);
+
   const pageData = {
     title: document.title,
     url: window.location.href,
     timestamp: new Date().toISOString(),
-    content: extractTextContent(document)
+    content: extractTextContent(document),
+    favicon: favioconUrl,
+    wordCount: textData.wordCount,
+    readingTime: textData.readingTime
   };
   
   // Send the data to the background script
