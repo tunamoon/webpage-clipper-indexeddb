@@ -8,19 +8,20 @@ function extractTextContent(doc) {
   // Get all text nodes from the body
   const bodyText = doc.body.innerText || doc.body.textContent || '';
   
-  // Limit to first 100 words
+  // Count total words
   const words = bodyText.split(/\s+/);
   const wordCount = words.length;
-
+  
+  // Calculate estimated reading time (average 200 words per minute)
   const readingTime = Math.ceil(wordCount / 200);
-
-  const firstHundredWords = words.slice(0, 100).join(' ');
+  
+  // Limit to first 100 words for content preview
+  const firstHundredWords = words.slice(0, 100).join(' ') + (words.length > 100 ? '...' : '');
   
   return {
-    content: firstHundredWords + (words.length > 100 ? '...' : ''),
+    content: firstHundredWords,
     wordCount: wordCount,
     readingTime: readingTime
-
   };
 }
 
