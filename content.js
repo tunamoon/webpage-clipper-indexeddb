@@ -41,7 +41,7 @@ function clipCurrentPage() {
     title: document.title,
     url: window.location.href,
     timestamp: new Date().toISOString(),
-    content: extractTextContent(document),
+    content: textData.content,
     favicon: faviconUrl,
     wordCount: textData.wordCount,
     readingTime: textData.readingTime
