@@ -42,7 +42,7 @@ function clipCurrentPage() {
     url: window.location.href,
     timestamp: new Date().toISOString(),
     content: extractTextContent(document),
-    favicon: favioconUrl,
+    favicon: faviconUrl,
     wordCount: textData.wordCount,
     readingTime: textData.readingTime
   };
